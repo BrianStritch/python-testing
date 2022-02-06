@@ -1,108 +1,110 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# __PYTHON TESTING WITH UNITEST__
+    - In this lesson, you will learn more about the  Unittest testing framework and see how tests  
+            run successfully in preparation for a more  in-depth look at how the framework is used.
+            Python provides us with a batteries-included  test module that is part of the Python standard library.
+            This testing framework  is called Unittest.
 
-Welcome USER_NAME,
+            “Batteries-included” simply means that it comes with everything needed for full usability as standard.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+    - Let's go over what we expect the  function we are going to build should do.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+            We are going to write a function  that accepts a list of numbers and returns true if the list contains  an even number of even numbers. 
 
-## Gitpod Reminders
+            It should also raise a TypeError if anything  other than a list is passed into the function.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+So let’s pause for a moment and  think about what we should test for?            
+And this is something you should always  do, even if you are not writing tests.
 
-`python3 -m http.server`
+Ok, this is what I’ve (the instructor) come up with.
 
-A blue button should appear to click: _Make Public_,
+        - Our function should raise a TypeError with an error message if a list isn't passed in as an argument.
 
-Another blue button should appear to click: _Open Browser_.
+            It should return False when numbers is empty, the numbers of even is odd,and when the number of evens is zero.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+            We'd expect it to return True if the numbers of evens is even, however.
 
-A blue button should appear to click: _Make Public_,
+So with this list of ideas for tests, I think we  are ready to get started setting up our files.
+# __Stage 1__ 
 
-Another blue button should appear to click: _Open Browser_.
+### __create basic files__
+    - create evens.py to write our python files
+    - create test_evens.py to write test functions
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+#### __Setting up unittest__
+    - Unittest requires that our test  filename starts with the word ‘test’,  
+        followed by an underscore and a  descriptive name of what we’re testing.
+        Next, we need to import the Unittest  module into our test_evens.py file.
+        To do this, we simply type import Unittest.  
+        As mentioned before, Unittest is part of Python’s  standard library, so we don’t need to install it.
+        We are now ready to create a test case
 
-To log into the Heroku toolbelt CLI:
+#### __test_evens.py__
+    - we'll do so by creating a class named TestEvens.
+        To make use of Unittest’s functionality,  
+        our class needs to inherit  from the unittest.TestCase class.
+        I'll also add a pass statement and unittest.main. So we can run the file without specifying the unit test module.
+        And when we run the code using the command python3  test_evens.py everything works fine, and we are  
+        shown in the output that 0 tests were run, which  is fine as we have not created any tests yet. 
+        You might be wondering what the pass statement does?  Let's comment it out and run the code again.
+        You will see you get an error. Python is expecting  an indented block after the use of a colon,  
+        so when you have no code using the pass statement  is valid and allows your code to run error free.
+        
+#### __evens.py__        
+    - Let’s move over to our other file and  declare our function. I will name it  
+        even_number_of_evens and give it a parameter  named numbers and have it return None.
+        Underneath it, inside a print method, I will call it and pass it the value five.
+        When I run this code, I see that our function works and returns None.
+        
+    - I am also going to add our list of test ideas to our function as a doc string, so we can refer to that if we need a
+        reminder of what we could be testing for. 
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+#### __back to test_evens.py to set up first test__
+    - 
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
 
-------
 
-## Release History
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
 
-------
 
-## FAQ about the uptime script
 
-**Why have you added this script?**
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
 
-**How will this affect me?**
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
 
-**So….?**
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
 
-**Can I opt out?**
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
 
-**Anything more?**
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
 
----
 
-Happy coding!
+
+
+
+
+
+
+
+
+
+
+
+
+
