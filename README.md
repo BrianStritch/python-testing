@@ -59,7 +59,42 @@ So with this list of ideas for tests, I think we  are ready to get started setti
         reminder of what we could be testing for. 
 
 #### __back to test_evens.py to set up first test__
-    - 
+    - I want to show a couple of more points  before we start building up our function  
+        using unit testing, so I will do a  basic test to show how they work.
+        First, we need to import our function into our test file.
+        Now we can write a test to check  everything works and our setup is correct.
+        So let's create a basic test that tests  whether if our function returns True.   
+        It will be a method and needs to start with the word ‘test’.  If we don’t start the method name with the word test,
+        it will be ignored and won't run, when we run the test file.
+        And as we are in a class we need to pass in the self keyword.
+        In here, we can create either a single assert or many asserts,  
+        for now we will just create one just to show you how things work.
+        So I’ll assertTrue that calling the function even_number_of_evens  
+        with an empty list returns True. 
+        If I run the test, we can see from the output  our test failed and the reason it failed. 
+
+    - It states an AssertionError None is not True. This makes sense as our  
+        function is set to return None, it also tells us  the line number and points to the test that fails,  
+        which makes it handy to figure  out which test is failing.
+
+    - When the test was run this function call was also run.
+        Let’s prevent that from happening by making  the following change.
+        So what is this doing? To keep it  simple, when Python runs a file directly,  
+        it names it __main__ and any code  beneath the if statement will only be run  
+        if the name of the file is __main__.
+        
+    - So when we run the test file it will have  the name __main__ and this code won't run.  
+        But when we run this file it will have the  name __main__ and it will run this code.
+        Let’s also add this to our  test file and then try it out.
+        And we no longer see “True” in the output.
+
+Okay, I’m going to change the True back to None, and delete our test in the test file 
+and add back in the pass statement.
+### __END OF STAGE 1__
+And we're all set up for the next lesson, in which we create a working function incrementally,
+by creating tests which should initially fail, and then pass by adding code to our function.
+We also have a list of ideas for which tests we can create. See you there!
+
 
 
 
