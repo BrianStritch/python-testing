@@ -95,17 +95,135 @@ And we're all set up for the next lesson, in which we create a working function 
 by creating tests which should initially fail, and then pass by adding code to our function.
 We also have a list of ideas for which tests we can create. See you there!
 
+# __Stage 2 - Building a function using TDD__
+In our last stage, we had an  introduction to the Unittest testing framework.
+We also set up our test file with the basic scaffolding required and we ran a test to  
+see how things work. We created a file for our  function which we named even_number_of_evens  
+and ran this to make sure all was working. Lastly,  we imported our function into our test file.
+With all that sorted in the last stage, we  can start writing the first of our tests.
 
+#### __testing for type - typerror testing__
+    - One of the first items we want to test for is that a TypeError is raised if a list is not passed into  
+        the function when it’s called. As mentioned in the previous stage, test functions need to start  
+        with the word ‘test’. If they don’t, they’ll be  ignored and won’t be run when we run our tests. 
 
+    - Let’s give our test a descriptive name that details what it is testing,  
+        test_throws_error_if_value_passed_in_is_not_list,  and pass in a reference to self.
+        - Inside our test, we write our assert  and I will use the assertRaises method.
+           This will call the assertRaises method  from TestCase and when the test is run  
+           it checks to see if a TypeError is raised  when the function is called with the value  
+           4. This should fail, as our function  at the moment is set to return None.
 
+Let’s run the test using the  command python3 test_evens.py. We can see from the output that  it did fail and the reason given  
+is that a TypeError wasn’t  raised by even_number_of_evens. So we have a fail, which is what we  want initially when we create a test. We now need to write some code in our  function to get this test to pass.
 
+##### __evens.py typeError testing__
+    - I am going to add a check in our function  that checks if the value passed in is a list, 
+        and if it is, return True else raise a TypeError.
+        So I am going to replace the return statement,  
+        write an if else statement, use the isinstance()  method to check if the value “numbers” is a list  
+        and add a string to output  when the error is raised.
 
+So let’s save that and go back to  our test file and run the test again.  
+This time we can see we get a pass, indicated  by the . and Ok at the end of the output.
+So to recap what we have done, we  first wrote a test that should fail  
+and then we wrote code in our  function so that our test passes.  
+This is the red and green parts  of our red-green-refactor cycle.
 
+#### __test_evens.py - test for empty list passed into function__
+    - The next test should test our  function returns False if an  
+        empty list is passed in, so I’ll create  a new test named test_values_in_list,  
+        and will use this code block  for the next few assertions.
+        I need to write an assertion  that checks if an empty list  
+        has been passed in and should be expecting False.
+        For this test I will use the assertEqual  method passing in the function with an  
+        empty list as an argument, and  the expected return of False.
+        And when we run the tests, it fails as expected.  
 
+##### __evens.py - test for empty list passed into functions__
+    - Again we need to add to the code in our  function, just enough to pass the test.
+        Let's pause so that you can think about what you  would need to add to the code in the function  
+        to pass this test. We will walk through  how I would do it when you get back.
+        Let’s look at how I got this test to pass.
+        Back in the function, I will replace  the return True with an if statement,  
+        which checks if numbers is equal to an  empty list and returns False if it is.
 
+So let’s save the code and go back to  our test file and run the tests again.  
+We can see from the output  that this has now passed.
+So at this stage, you should understand the  process, which is you write a test that fails  
+and then add code to the function  that should get the test to pass. Our test passes for an empty list.
 
+#### __test_evens.py - test for two even values passed as list__
+What  should it do if we pass in two even numbers?  
+In this case, we would want it to pass.
 
+    - So let’s add another assert that should pass  when we add two even numbers to the list.
+        And when we run our test we see it fails.  
 
+So, how do we get this to pass? 
+
+##### __evens.py - test for two even values passed as list__
+
+    - Let’s add  an else to our if statement and return True.
+
+    - This is probably not what you were expecting but  if we save our code and run the tests, we can see  
+        them all passing with flying colours. 
+
+Looking at  the code in the function, it may seem that it does  
+not make sense, but we are incrementally building  up the function by writing and passing tests.
+
+#### __test_evens.py - testing if only one even number is passed__
+Our function at the moment returns True for any  amount of numbers passed into it, and that's fine,  
+but what is a test it should fail for? It should  fail if only one even number is passed in
+
+    - so let's write a test that  checks for one even number.  
+        This test will fail and we can then look  at what we need to do to get it to pass.
+        Let’s run the tests. And as  expected this test fails.
+        We’re at the stage now where we need to  count the number of even numbers in the list 
+        and then check if that number itself is even.  So let's write the code to make this test pass.
+
+##### __evens.py - testing if only one number passed__
+    - If a number is sent in, let's initialize  a variable to say that we currently have zero evens.  
+        And now, let's write a for loop 
+        and within it an if statement that  checks if each number is even.
+
+    - We can use the modulo operator to see if the  remainder when it's divided by two is zero. 
+        If it is, then it's an even number  and we increment the evens variable.
+        Outside the for loop, I’ll add a return  statement and using the modulo operator  
+        check if the evens variable is an even number.
+        So this will return True if the number  of evens is even, and False if it's not.
+        
+Let's save that and run the tests again and see what we get. And we can see that all tests are passing. 
+
+#### __test_evens - testing for odd numbers in list__
+Things are looking good. Our function is  generally working, but there are still more  
+tests because we haven't tested what will happen if we send in any odd numbers yet. 
+
+    - I’ll create another assert  so we can see what happens  
+        if we send in an odd number of odd numbers.
+        We would expect this to return  False but this time pass the test.  
+        
+Let's run our program. It fails! That means that our program was returning True when it should have been returning False. 
+
+###### __test question from instructor__
+Just have a look at the code for a  few minutes. See if you can figure  
+out for yourself why the code is returning  True when it should be returning False. 
+    - Well, as we see, the problem is here with our return in evens.py 
+        Because we pass in 3 odd numbers, evens is going  to have the value 0 and 0 % 2 will equal 0,  
+        so True is returned. What we need to do here  
+        is add an if statement. We can use a truthy  falsy value check of evens, so if evens is > 0  
+        it will evaluate to True and False if it is 0 And within the if evens is greater than 0,  
+        we can return evens % 2 == 0.
+        Now, when we run this, all tests are passed again.
+
+### __end of stage 2__
+
+We've used test-driven development to build  our function incrementally, and it works! 
+It's not the prettiest, and it's maybe  not written using the cleanest code,  
+but now that we know that it works, we can go  ahead and refactor our code with confidence. 
+In our next lesson, that's exactly  what we're going to do. See you there!
+
+# __Stage 3 - refactoring__
 
 
 

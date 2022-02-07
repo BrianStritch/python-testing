@@ -9,7 +9,30 @@ def even_number_of_evens(numbers):
     if the numbers of evens is even return True
     """
     # return None  changed to true to make test pass
-    return True
+    # return True
+    # this next conditional is to raise a typerror if a list is not passed to function
+    if isinstance(numbers, list):
+        # return True
+        # this next conditional checks for asn empty list passed to function
+        if numbers == []:
+            return False 
+            
+
+        else:            
+            # return True this was the return value for even numbers in list
+            # for loop to check if number of even numbers in list is even amount
+            evens = 0
+            for n in numbers:
+                if n % 2 == 0:
+                    evens += 1
+            # this conditional tests to see if evens is equal to zero and returns the appropriate value # noqo
+            if evens: # this is the same as writing if evens > 0: as evens is True if greater than zero 
+                return evens % 2 == 0
+            else:
+                return False
+
+    else:
+        raise TypeError("A list was not passed into the function")
 
 
 '''
