@@ -278,12 +278,85 @@ learned how to build out our code using  unit tests and how to refactor our code
 Now that you are familiar with how  to build tests, we’re going to have  
 a look in our next unit at testing class properties and methods. See you there!
 
+# __OUR STUDENT CLASS__
+# __Stage 4 - Our Student Class__
+In the previous lessons, you learned  about the Unittest framework,  
+making assertions, catching errors and  revised the Test-Driven Development process. 
+In this video, I’ll introduce the Student class which we’ll be using for the remainder of this module.
+I promised that things would get exciting and  this is where it begins. So far, we’ve used a  
+pure Test-Driven Development process for testing  purposes.
 
+    - We’ll take a slightly different approach  
+        here by creating a Student class with some basic  functionality before our tests. We’ll then add  
+        functionality using Test-Driven Development once  we’re familiar with creating tests for methods.
+        Our Student class will have all the basic  functionality one might expect to see when  
+        needing to handle multiple students with different start and end dates. I say basic functionality  
+        as there is a lot that can be added to make this usable in a real-world scenario.
+        For now, it will work quite nicely for our tests. Let’s  start by creating a file called student.py.   
 
+#### __Student.py__
+    - Once created, I’ll go ahead and define a class called  Student and add a docstring stating what it’s for.
+        To allow us to define start and end  dates, we’ll use two methods from the  
+        datetime module called date and timedelta  which I’ll import at the top of the file.
+        Next, we can define our init method. It will have  three parameters: self, first_name and last_name.  
+        Inside the init method, we can set  self._first_name to be equal to first_name  
+        and self._last_name equal to last_name.
+        As we want these to be read-only  fields, we can prepend the first_name  
+        and last_name properties with an underscore so  other developers know how it should be used.
+        We’ll also go ahead and define a start_date  which will be set using the date.today() method.  
+        When an instance of our Student class is created,  the start_date value is set using the time at  
+        the moment of the instance’s creation. In our  fictional school, students will enroll for a year,  
+        so we can define end_date and set it equal  to date.today() plus a timedelta of 365 days.  
+        This doesn’t allow for leap years, so if you want  to improve this class at the end of the module,  
+        this might be something worth looking into.
+        Finally, we’ll add a field called naughty_list  which is set to False initially. This is of course  
+        so we can let Santa know if a student misbehaves  and redirect their presents to ourselves.
+        With the init method defined, we can  go ahead and create a read-only method  
+        to get more detailed information about a  student, such as the student’s full name.  
+        Let’s add a method called full_name,  add self as a parameter and return an  
+        f-string consisting of self._first_name  and self._last_name separated by a space.  
+        Since this is a method to get data only, I’ll add  the @property decorator to our full_name method.
+        We will add more methods to our  Student class in later videos,  
+        but we can see that our Student class can  be extended to add a lot more functionality  
+        and I encourage you to try that at the end  of the module to cement your knowledge of  
+        testing in Python while creating  truly practical and usable code.
 
+### __end of stage 4__
+In this lesson, we created a student.py file  with a Student class which will form the  
+base of our tests. It has properties, sets values  automatically on creating an instance of the class  
+and has a method to return a student’s full name. In the next video, we’ll write the first test  
+for our Student class to ensure it provides  the functionality we expect. See you there!
 
+# __Stage 5 - OUR STUDENT CLASS - Testing methods and properties__
+    - In the previous lesson, we created a basic Student  class with properties and a full_name method. 
+        In this lesson, we’ll look at testing the  full_name method of our Student class.
+        Now that our Student class is in place,  how would we go about testing it?  
+        If you thought that we would need to  create an instance of the class first...
+        Well done! Before we can do that, however, we  need to do our basic setup of our test file.  
+        Using the knowledge you’ve gained so far, pause  the video and create a file using the naming  
+        convention mentioned in an earlier lesson while  also setting up an empty class for our tests.
 
-
+#### __test_student.py__
+    - At this point, you should have  a file called test_student.py,  
+        and our required imports including Unittest and our  Student class. A class named TestStudent that  
+        inherits from unittest.TestCase is also required.  Though it isn’t required, I’ll add the same if  
+        statement we used before so we can run the file  without having to specify the Unittest module.
+        With that now in place, we can start  creating our first test and we’ll do so  
+        for the full_name method. I’ll name the method  test_full_name and pass in a reference to self.
+        As mentioned earlier, we need to  create an instance of the Student class  
+        in order to test it. I’ll name  the instance student and make  
+        sure to pass in the first_name and last_name  arguments of ‘John’ and ‘Doe’ respectively.
+        We can now use an assertEqual on the  student instance to see whether calling  
+        the full_name method on it returns  the expected value.   
+        In our case, the first_name and last_name  properties separated by a space.
+        If we now run our test, we can see that it  passes. Great! 
+        
+That’s our first test done,so we’re well on our way towards extending  the scope of our tests and Student class.
+In this video, we wrote the first test for our  Student class. We created an instance of the  
+class and asserted that the full_name method  returns the correctly formatted student name. 
+In the next video, we’ll start  employing Test-Driven Development  
+for our Student class. We’ll create a new test  
+to change the naughty list property to true  before creating the method to be tested. See you there!  
 
 
 
