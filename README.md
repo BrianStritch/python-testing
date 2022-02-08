@@ -224,9 +224,59 @@ but now that we know that it works, we can go  ahead and refactor our code with 
 In our next lesson, that's exactly  what we're going to do. See you there!
 
 # __Stage 3 - refactoring__
+In the previous lesson, we created our function using unit testing and in this video,  
+we are going to look at refactoring our code. Using the DRY, or Don't Repeat Yourself,  
+principle, we can have a look at  our code and see if there's anything  
+that's repetitive or redundant.
 
+###### __refactoring step 1__
+    -  One thing that stands out straight  
+        away is our check for an empty list  right at the beginning of our code. 
+        As we step through the code, we can see that our  check to see if evens equals 0 should cover that,  
+        so we can take out the empty list check. If we're wrong, then our tests will tell us. 
+        So, let's try that.
+        We can see that it still passes all the tests.
+        
+###### __refactoring step 2__
 
+    - We can see that it still passes all the tests.
+        Another section of code that  stands out is this section here.
+        Anytime I see a for loop I tend to think of using  a list/dictionary comprehension, and this looks  
+        like a case to remove all these lines of code  and replace them with a list comprehension.
+        Let's look at how we could do that. I’ll  create a basic one and print it out,  
+        calling the function with the values [2, 1, 4].
+        If I run the file and we see [2, 1, 4] printed  out. Now, we don’t need the values.   
+        Looking at our code, we add 1 to the variable evens  each time we get an even number in the list.
+        Let’s replace the value with  1 for each item in the list.  
+        To do that, we replace the  first n with the number 1.
+        If we run our file, we get [1, 1, 1].
+        That’s better and more useful, but our code  uses an if statement to ignore odd numbers,  
+        so let’s add that to our  comprehension. That gives us:
+        1 for n in numbers if n % 2 == 0
+        If we run the code again, we get: [1,1] 
+        And finally, we can wrap the list comprehension  in the sum() method to get a total.
+        When we run the code again we get 2.
+        That works great, so we can  assign this to our evens variable  
+        and replace all those lines of code.
 
+###### __refactoring step 3__
+    - Another section I see we can  easily refactor is this section.
+        This looks like it should easily be  converted to a single line conditional expression
+        which would take the format: True if condition else False.
+        So let's try doing that.
+        For the condition I see I need two checks.  
+        First, we check if evens is not 0, so  let’s use a truthy check to do that.
+        Second, evens % 2 == 0, so lets add that as well.
+        And there we go: return True if evens  not 0 and evens % 2 == 0 else False.
+        Let’s see what happens if we run the tests again. And they all pass, great!
+
+### __End of stage 3 - refactoring__
+
+So we have refactored our code and all our  tests pass. That means we’ve covered all  
+phases of the red-green-refactor cycle. In this and the previous videos we have  
+learned how to build out our code using  unit tests and how to refactor our code.
+Now that you are familiar with how  to build tests, we’re going to have  
+a look in our next unit at testing class properties and methods. See you there!
 
 
 
