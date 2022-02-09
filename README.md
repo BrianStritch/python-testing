@@ -447,9 +447,140 @@ passing with these new additions to our code. In the next lesson, we’ll take a
 lifecycle of a test and how we can refactor our  tests based on what we’ll learn. See you there!
 
 
-# __STAGE 8 - __
+# __STAGE 8 - The lifecycle of a test__
+# __***** setUp / tearDown *****  setUpClass / tearDownClass *******__
+- In the previous lessons, we added the test_alert_santa and test_email methods to our  
+testing file, as well as creating the alert_santa and email functions in our Student class. 
+In this video, we’ll look at the  lifecycle of a test - more specifically,  
+how and when the tests are run and how instances are created and destroyed when running our tests.
 
+- At the moment, we’ve got quite a bit  of repetition in our test functions. In every test, we’re manually creating the same  student instance on which to perform our tests. This violates the DRY, or Don’t  Repeat Yourself, principle.  
+Our TestStudent class contains  only a few test methods, but can you imagine how much code repetition  we’d have if we had many more tests to run? Luckily for us, Unittest gives us two methods  that will be run at the beginning and end of each test method. They are called setUp and  TearDown respectively, are optional and are used to set up and teardown or destroy a testing  environment for each test method. It’s important to note that these methods are defined using camel  case instead of the conventional snake case which is used in Python. This is most likely due to it  having been carried over from older legacy code. It’s important to declare them using  camel case or they won’t run at all.
 
+#### __Back to test_student.py__
+    - Since the setUp method runs before each test  method, it would save us code repetition if we  
+        could define our student instance there so it can  be available in each test method when it’s run.
+        Let’s go ahead and create the setUp method  at the beginning of our TestStudent class  
+        and add a reference to “self”. Next, I’ll create  a student instance as an instance variable,  
+        so it needs to be prepended with the “self”  keyword. Just so we can see when the setUp  
+        method is run, I’ll add a print statement  that’ll print “setUp” to the terminal.
+        Since student is now an instance variable,  we’ll need to go and change every reference  
+        to self.student. Now that the student instance  will be created in the setUp method at the start  
+        of each test method, we can remove the student  instantiations in each of them. I’ll also add a  
+        print statement to each test method which will  print the method’s name to the terminal.   
+        This will allow us to see when our test methods are  run relative to the setUp and tearDown methods.
+        We won’t be using any functionality that  requires the use of the tearDown method, but you may be wondering what it’s for.
+        Whereas the setUp method can be used to  create temporary files and folders or set up  
+        a database connection during tests, the tearDown  method would be used to remove temporary files  
+        or folders or close a connection to a database. As  we don’t need any of that functionality, adding a  
+        simple statement to print “tearDown” will allow  us to see when it is called behind the scenes.
+        Everything is now in place to test whether our setup works. Let's see what happens when we run our tests.
+        Just as expected. For each test, we can see in  order the following printed in the terminal:  
+        setUp, followed by the name of  the test and finally, tearDown.  
+        This shows that the setUp method is run before  each test, while the tearDown method is run after.  
+        The fact that all our tests still pass  indicates that our student instance was  
+        indeed created successfully and that  it was accessible within each test.  
+        It is interesting to note that the tests  don’t run in the order we defined them.  
+        What is important, however,  is that they do all get run.
+        Now consider we want to run code once at the  beginning of our tests. We may want to do this to  
+        populate a test database with data, for example.  We can’t use the setUp method as that gets called  
+        at the beginning of each test method. Fortunately,  Unittest provides another method we can use for  
+        this particular use case called setUpClass.  We can also use the tearDownClass method  
+        to destroy a test database, for instance, and this  method will be run once at the end of our tests.
+        As we don’t have a particular use for  it in our test, I’ll simply show you  
+        how to set up these methods and add print  statements so we can see when they are run.
+        At the top of our test_student file, I’ll go  ahead and add setUpClass with a parameter of ‘cls’  
+        instead of ‘self’. I do this as setUpClass is  a class method that affects the class itself  
+        instead of only an instance of the  class as the ‘self’ parameter would.  
+        Let’s add a print statement inside our method that  will print “setUpClass” to the terminal when run.  
+        There is one more thing we need to  add to make this a class method,  
+        and that is the @classmethod  decorator. Just to reiterate,  
+        adding the @classmethod decorator to a method  and passing ‘cls’ as a method parameter  
+        will make it a class method which acts on the  class instead of an instance of the class.
+        I’ll do the same thing for  the tearDownClass method,  
+        but print “tearDownClass”  inside the method instead.  
+        Let’s not forget to add  the @classmethod decorator.
+        We expect the setUpClass and tearDownClass  methods to run once at the beginning and end  
+        of our tests instead of before and after each  test method. With our print statements added,  
+        we should be able to verify that in the terminal,  so let’s go ahead and run our tests again.
+        And we can see “setUpClass” printed  once at the beginning of our tests  
+        and “tearDownClass” at the end as expected.  
+        These Unittest methods are very powerful and  will be of great use in your future projects.
+        Knowing what you want to set up and when  to do so will allow you to utilise the  
+        lifecycle of a test to your advantage.  
+
+### __End of Stage 8__
+In this lesson , you learned about the lifecycle of a test, including the setUpClass  and tearDownClass methods that are run once at the beginning and end of our tests, as  well as the setUp and tearDown methods that are run before and after each test method. For our  tests, you used the setUp method to automatically create a student instance, allowing you to  refactor the code and make it more legible.
+
+In the next lesson, you’ll take  charge and create a new test and method to satisfy the challenge  requirements. See you there!
+
+# __Stage 9 - CODE ALONG CHALLENGE__
+In the previous video, you learned  about the lifecycle of a test and  
+how to use it to refactor and optimise your code. 
+In this video, you’ll take charge and  use the Test-Driven Development process  
+to create a new test and function to extend  the functionality of our Student class.
+There are still properties in our Student class  that aren’t really doing anything at the moment,  
+and these are start_date and end_date. Until  time travel is invented, there shouldn’t be a  
+reason to change a student’s start date. It’s  set automatically when we create an instance  
+of the Student class, and as long as our time  is set correctly, we won’t have to modify this value again.
+The end date is another matter  though. Due to unforeseen circumstances,  
+none of which of course relate to time  mismanagement by a student (cough cough),
+a short extension could be offered to help them finish the  course. This is what you’re going to implement.
+The requirements are as follows:
+
+#### __list of requirements__
+    - Create a test called test_apply_extension  that will assert whether a method called  
+        apply_extension updates a student’s  end_date by adding a number of days to it.  
+        The number of days needs to be passed  into apply_extension as an argument.
+        Then create a method in the Student  class called apply_extension that will  
+        have a parameter called days and  will update a student’s end_date  
+        by adding the argument given as  days to their original end_date.
+        Think this through before you start  coding and look at the questions you  
+        need to ask yourself at the bottom of this slide.
+        Having a look at the timedelta  documentation is also recommended.  
+        Pause the video now and try to implement that  before coming back to see how I go about doing it.
+
+#### __answer to complete challenge__
+    - create a new test method called test_apply_extension
+    - inside test_apply_extension, store the current end date for our test student instance in a variable called old_end_date
+    - call a method named apply_extension that will take a number of days as an arguement on the student instance to update the end_date
+    - assert whether the instance's end date equals the old end date plus the days arguement that was passed in using timedelta
+    - run the tests to confirm that the new method is failing
+    - in the student class, create a new method  called apply_extension that has a parameter called days
+    - use the timedelta method from timeline to update the end_date property
+    - run the tests to confirm they are working
+
+    The method below is also great!  But keep in mind that  it will
+        only be correct if a student has received 1 extenstion.  If 
+        they receive a second - it would return false
+        
+        self.student.apply_extension(5)
+        self.assertEqual(self.student.end_date, self.student._start_date + timedelta(days=370))
+
+### __End of stage 9__
+In this lesson, you took charge and created a  test and method to extend a student’s end date. 
+In the next lesson, I’ll introduce  you to a concept call mocking  
+so we can test functionality which may fail  for reasons beyond our control. See you there!
+
+# __Stage 10 MOCKING__
+
+In the previous video, you created a test  method called test_apply_extension and the  
+apply_extension method it tests. You followed  the Test-Driven Development process to do so,  
+and confirmed that all tests were passing. In this video, we’ll have an introduction to  
+mocking and how it allows us to test functionality  that could fail due to factors beyond our control.
+Up till now, we’ve written some comprehensive  tests for our Student class.   
+They're comprehensive in the sense that they shouldn’t  fail due to external factors.  
+But what would happen if our class needed to make a call to an external API? What if the external server is down? 
+How can we test for something that  we as developers can’t control?
+Our methods may have complex  logic with try except blocks  
+or if statements that may be hard to satisfy  and it can be hard for developers to test  
+the complete flow of logic through methods as  they can’t cause a dependency to fail at will.
+This is where mocking comes into play. The purpose  of mocking is to focus on the behaviour of the  
+code being tested - not the state or behaviour  of external dependencies.
+In essence, we mock, or imitate the behaviour of external factors to confirm that our methods work as intended.
+In the next video, we’ll create a new method  in our Student class that will make a call to a  
+fictional API to get a student’s course schedule.  We’ll then create a test for it and mock the  
+request being successful and failing to ensure  our method behaves as expected. See you there!
 
 
 
