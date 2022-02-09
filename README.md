@@ -350,7 +350,8 @@ for our Student class to ensure it provides  the functionality we expect. See yo
         the full_name method on it returns  the expected value.   
         In our case, the first_name and last_name  properties separated by a space.
         If we now run our test, we can see that it  passes. Great! 
-        
+
+### __end of stage 5__        
 That’s our first test done,so we’re well on our way towards extending  the scope of our tests and Student class.
 In this video, we wrote the first test for our  Student class. We created an instance of the  
 class and asserted that the full_name method  returns the correctly formatted student name. 
@@ -358,14 +359,95 @@ In the next video, we’ll start  employing Test-Driven Development
 for our Student class. We’ll create a new test  
 to change the naughty list property to true  before creating the method to be tested. See you there!  
 
+# __STAGE 6 - Building a method using TDD - creating the first test__
+#### __test_student.py - santa naughty list__
+    - In the previous lesson, you created your first test for our Student class where you instantiated
+        it and called the full_name method on it to assert whether it returned the first_name
+        and last_name property values separated by a space.
+        In this lesson, we’ll start using Test-Driven Development and create a test for a function
+        called alert_santa that  will change the naughty_list property to True.
+        We don’t have the method we want to test yet, but we do know what we want it to do.
+        If a student misbehaves for some inexplicable reason, we want to alert Santa by adding the student to his naughty list.
+        When the class is instantiated, the naughty_list  property is set to False.
+
+#### __naughty list__
+    - So, we know that the method we want to test will  set the value of the naughty_list property to  
+        True and this makes it easily testable. Since  we want to alert Santa, we’ll make a decision  
+        now to call that method alert_santa so we can  use it in our tests before it’s been created.
+        Following the naming convention for  test methods, I’ll go ahead and create  
+        a method called test_alert_santa  and pass in a reference to ‘self’.
+        As before, we need to create an instance  of our student class and call it student. 
+        We’ve been using assertEqual methods up till now,  
+        but we’ll use a different assert  for this test called assertTrue.
+        The reason being that we know that  we want the alert_santa method to set  
+        the value of the naughty_list  property to True when called.
+        With our student instance created,  let’s call the alert_santa method on it. 
+        Now, we can use self.assertTrue to test  whether student.naughty_list is True. 
+        Note that we don’t pass a second  argument to assertTrue as it’s not  
+        comparing two values but simply checking  whether an expression or value is True.
+        What do you expect will happen if we run our tests  now? Since our alert_santa method doesn’t exist in  
+        the Student class yet, we expect it to fail with  an error. Let’s run the tests now and check that.
+        And, as expected, it fails with an  AttributeError. This completes the  
+        “red” stage of our red-green-refactor methodology.
+
+### __End of stage 6__
+In this lesson, we started following  the TDD principle and created a test  
+called test_alert_santa that will test the  behaviour of a method called alert_santa  
+that we still need to create in the Student class. 
+In the next lesson, we’ll create the  alert_santa method in the Student class  
+and run our tests again to complete the “green”  part of red-green-refactor. See you there!
+
+# __STAGE 7 - Building a method using TDD - creating the code__
+In the previous video, we started  applying Test-Driven Development  
+by creating a test called test_alert_santa  that will test the functionality of a method  
+called alert_santa that hasn’t been created  yet. We also watched this test fail as expected. 
+In this video, we’ll create  the alert_santa method,  
+rerun our tests and confirm that they’re passing.
+As seen in the previous video, we had a pretty  good idea of what our alert_santa method needs to look like.
+It isn’t a read-only method  and will modify the naughty_list property  
+instead of returning a value. With  this in mind we can create our method.
+Let’s create it below the full_name method.  
+
+#### __CREATING THE ALERT_SANTA FUNCTION__
+    - We’ll call it alert_santa to mirror the name  used in our test_alert_santa method and pass in  
+        a reference to self. I’ll add self.naughty_list  equals True to update the property value.
+        With this in place, let’s run our  tests again and see if they pass.  
+        And we can see that both of them do.  Fantastic! We’ve now completed the  
+        “green” part of our red-green-refactor  process for the alert_santa function.
+
+#### __task set by instructor__
+    - While we’re at it, let’s add another test and  function. I’ll let you take the reins for this one  
+        and we can look at my implementation afterwards.  What we want is a read-only method that will  
+        return a student’s email address. It will take  the form _first_name dot _last_name@email.com.  
+        For simplicity’s sake, all email  addresses will end in email.com.  
+        You can create the test for this first, followed  by the actual method itself in the student class.  
+        If you’re uncertain how to proceed, use the  test_full_name and full_name methods as reference.  
+        Pause the video now and work away on that  and unpause to compare your code to mine.
+
+    - Welcome back. I’ll implement it  quickly so you can reference my code.
+        First, I’ll create a new test method called  test_email with a reference to self.
+        Inside it, I’ll create an instance of the Student class using  the first and last name properties as before.  
+        Next, I’ll code our assertEqual and compare the  output of student.email to the expected output.  
+        Email addresses use lowercase letters, so  I’ll make sure to add a second argument  
+        to the assert with the first and last  names values adjusted appropriately.  
+        To achieve this output, our email  method will need to convert the first  
+        and last name properties to lowercase, so we’ll  make sure to do that when the test is done.
+        Our test is looking good, so I’ll  go ahead and add our email method  
+        to the Student class. As it’s a read-only method,  
+        I’ll add the @property decorator and call  the method email with a reference to self.  
+        We just need to return a string that includes the  _first_name and _last_name properties separated  
+        by a dot, followed by email.com. As mentioned  earlier, the _first_name and _last_name values  
+        need to be converted to lowercase, so I’ll make  sure to do that using the lower() string method.
+        With that in place, I’ll run our tests again  to confirm that they pass, which they do!
+
+### __End of stage 7__
+In this lesson, we created the alert_santa  method in our Student class and created another  
+test for our email method which we then created  afterwards. We also confirmed that our tests are  
+passing with these new additions to our code. In the next lesson, we’ll take a look at the  
+lifecycle of a test and how we can refactor our  tests based on what we’ll learn. See you there!
 
 
-
-
-
-
-
-
+# __STAGE 8 - __
 
 
 
