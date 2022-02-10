@@ -6,6 +6,7 @@ to run this file you use python3 test_student.py
 """
 from datetime import date, timedelta
 import unittest
+from unittest.mock import patch # for mocking
 # 2
 from student import Student
 
@@ -65,7 +66,7 @@ class TestStudent(unittest.TestCase):
         - in the student class, create a new method  called apply_extension
             that has a parameter called days
 
-        - use the timedelta method from timeline to update the end_date 
+        - use the timedelta method from timeline to update the end_date
             property
 
         - run the tests to confirm they are working
@@ -76,9 +77,24 @@ class TestStudent(unittest.TestCase):
         they receive a second - it would return false
 
         self.student.apply_extension(5)
-        self.assertEqual(self.student.end_date, self.student._start_date 
+        self.assertEqual(self.student.end_date, self.student._start_date
                                                     + timedelta(days=370))
         """
+
+    def test_course_schedule_success(self):
+        with patch('student.requests.get') as mocked_get:
+            mocked_get.return_value.ok = True
+            mocked_get.return_value.text = 'Success'
+
+            schedule = self.student.course_schedule()
+            self.assertEqual(schedule, 'Success')
+    
+    def test_course_schedule_failed(self):
+        with patch('student.requests.get') as mocked_get:
+            mocked_get.return_value.ok = False            
+
+            schedule = self.student.course_schedule()
+            self.assertEqual(schedule, "Something went wrong with the request!")
 
 
 if __name__ == '__main__':

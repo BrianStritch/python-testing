@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+import requests # for mocking
 
 
 class Student:
@@ -34,3 +35,12 @@ class Student:
 
     def apply_extension(self, days):
         self.end_date += timedelta(days=days)
+
+    # for mocking
+    def course_schedule(self):
+        response = requests.get(f"http://company.com/course_schedule/{self._last_name}/{self._first_name}") # noqa
+
+        if response.ok:
+            return response.text
+        else:
+            return "Something went wrong with the request!"
